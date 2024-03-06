@@ -18,3 +18,6 @@
   - package.json
 - authorization: [next-auth](https://next-auth.js.org/)
 
+## Features
+
+- process.env build time validation by src/config.js as well as export with types
