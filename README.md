@@ -16,7 +16,7 @@
   - [react-datepicker](https://reactdatepicker.com/)
   - [@tanstack/react-table](https://tanstack.com/table/latest)
   - package.json
-- authorization: [next-auth](https://next-auth.js.org/)
+- authorization: [lucia-auth](https://lucia-auth.com/)
 
 ## Features
 
