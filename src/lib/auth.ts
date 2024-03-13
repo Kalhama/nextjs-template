@@ -1,7 +1,7 @@
 import config from '@/config.mjs'
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma'
 import { User as DatabaseUser } from '@prisma/client'
-import { GitHub } from 'arctic'
+import { GitHub, Google } from 'arctic'
 import { Lucia } from 'lucia'
 import type { Session, User } from 'lucia'
 import { cookies } from 'next/headers'
@@ -23,7 +23,7 @@ export const lucia = new Lucia(adapter, {
   },
   getUserAttributes: (attributes) => {
     return {
-      username: attributes.username,
+      email: attributes.email,
     }
   },
 })
@@ -37,12 +37,17 @@ declare module 'lucia' {
 }
 
 export const github = new GitHub(config.GITHUB_ID, config.GITHUB_SECRET)
+export const google = new Google(
+  config.GOOGLE_ID,
+  config.GOOGLE_SECRET,
+  `${config.HOST}/login/google/callback`
+)
 
-export const validateRequest = cache(
+export const getCurrentUser = cache(
   async (): Promise<
     { user: User; session: Session } | { user: null; session: null }
   > => {
-    const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null
+    const sessionId = cookies().get(lucia.sessionCookieName)?.value
     if (!sessionId) {
       return {
         user: null,

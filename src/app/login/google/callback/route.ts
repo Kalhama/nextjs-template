@@ -1,18 +1,20 @@
-import { github, lucia } from '@/lib/auth'
+import { google, lucia } from '@/lib/auth'
 import { createSessionForUser } from '@/lib/create-session-for-user'
 import { db } from '@/lib/db'
 import { OAuth2RequestError } from 'arctic'
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   const {
     nextUrl: { searchParams },
   } = request
   const state = searchParams.get('state')
   const code = searchParams.get('code')
-  const savedState = cookies().get('github_state')?.value
-  if (!code || !state || !savedState || state !== savedState) {
+  const codeVerifier = cookies().get('google_codeverifier')?.value
+  const savedStete = cookies().get('google_state')?.value
+
+  if (!code || !state || !codeVerifier || !savedStete || savedStete !== state) {
     return Response.json(
       {
         error: 'invaild input',
@@ -24,35 +26,43 @@ export async function GET(request: NextRequest): Promise<Response> {
   }
 
   try {
-    const { accessToken } = await github.validateAuthorizationCode(code)
+    const { accessToken, idToken, refreshToken, accessTokenExpiresAt } =
+      await google.validateAuthorizationCode(code, codeVerifier)
 
-    const githubUser: GitHubUser = await fetch('https://api.github.com/user', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }).then((res) => res.json())
+    const googleUser: GoogleUser = await fetch(
+      'https://www.googleapis.com/oauth2/v1/userinfo',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    ).then((res) => res.json())
 
-    // Replace this with your own DB client.
     const existingOAuthAccount = await db.oAuthAccount.findFirst({
-      where: { providerUserId: String(githubUser.id), provider: 'GITHUB' },
+      where: {
+        provider: 'GOOGLE',
+        providerUserId: googleUser.id,
+      },
       include: {
         user: true,
       },
     })
 
     if (!existingOAuthAccount) {
-      // Replace this with your own DB client.
+      if (!refreshToken) {
+        throw new Error('no refresh token')
+      }
       const data = await db.oAuthAccount.create({
         data: {
-          provider: 'GITHUB',
-          providerUserId: String(githubUser.id),
+          provider: 'GOOGLE',
+          providerUserId: googleUser.id,
           user: {
             connectOrCreate: {
-              create: {
-                email: githubUser.email,
-              },
               where: {
-                email: githubUser.email,
+                email: googleUser.email,
+              },
+              create: {
+                email: googleUser.email,
               },
             },
           },
@@ -76,7 +86,13 @@ export async function GET(request: NextRequest): Promise<Response> {
   }
 }
 
-interface GitHubUser {
-  id: number
+interface GoogleUser {
+  id: string
   email: string
+  verified_email: string
+  name: string
+  given_name: string
+  family_name: string
+  picture: string
+  locale: string
 }
