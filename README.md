@@ -1,5 +1,20 @@
 # Nextjs template
 
+A NextJS template with Prisma, variety of utility functions, and more.
+
+## TODO documentation
+
+- [ ] TOC
+
+## How to start developing
+
+1. Install a postgresql
+2. Create .env file which has got all the fields from `src/config.mjs`. If you want to disable some of the OAuth providers you can do it first. DATABASE_URL should be [Prisma connection URL](https://www.prisma.io/docs/orm/reference/connection-urls)
+3. `pnpm install`
+4. `pnpm exec prisma db push`
+5. `pnpm dev`
+6. Go to [localhost:3000](http://localhost:3000) to see server running
+
 ## Tech
 
 - framework: [Next.js](https://nextjs.org/docs)
@@ -17,20 +32,6 @@
   - [@tanstack/react-table](https://tanstack.com/table/latest)
   - package.json
 - authorization: [lucia-auth](https://lucia-auth.com/)
-
-## TODO documentation
-
-- [ ] Short description of the package for the start of readme outlining key features
-- [ ] TOC
-
-## How to start developing
-
-1. Install a postgresql
-2. Create .env file which has got all the fields from `src/config.mjs`. If you want to disable some of the OAuth providers you can do it first. DATABASE_URL should be [Prisma connection URL](https://www.prisma.io/docs/orm/reference/connection-urls)
-3. `pnpm install`
-4. `pnpm exec prisma db push`
-5. `pnpm dev`
-6. Go to [localhost:3000](http://localhost:3000) to see server running
 
 ## How to add additional OAuth methods
 
