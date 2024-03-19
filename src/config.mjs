@@ -10,8 +10,10 @@ const schema = z.object({
   GITHUB_SECRET: z.string(),
   GOOGLE_ID: z.string(),
   GOOGLE_SECRET: z.string(),
+  HOST: z
+    .string()
+    .refine((host) => !host.endsWith('/'), 'Remove trailing slash')
+    .refine((host) => host.startsWith('http'), 'must start with http or https'),
 })
 const config = schema.parse(process.env)
 export default config
-
-// https://sophiabits.com/blog/verify-environment-variables-nextjs
