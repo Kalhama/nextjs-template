@@ -2,10 +2,6 @@
 
 A NextJS template with Prisma, variety of utility functions, and more.
 
-## TODO documentation
-
-- [ ] TOC
-
 ## How to start developing
 
 1. Install a postgresql
