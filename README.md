@@ -20,7 +20,6 @@
 
 ## TODO documentation
 
-- [ ] `@/utils/db.ts`
 - [ ] `@/utils/server-action-error.ts`
 - [ ] `@/utils/wrap-server-action.ts`
 
@@ -136,4 +135,17 @@ export default function UserData() {
   )
 }
 
+```
+
+## Prisma ORM utility function
+
+Use PrismaClient singleton. It's exported as `db` from `@/lib/db.ts`
+
+```typescript
+import { db } from `@/lib/db.ts`
+
+(async () => {
+  // db is PrismaClient
+  const users = await db.users.findMany()
+})()
 ```
