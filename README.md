@@ -20,9 +20,6 @@
 
 ## TODO documentation
 
-- [ ] `@/utils/server-action-error.ts`
-- [ ] `@/utils/wrap-server-action.ts`
-
 - [ ] `@/components/button-loading.tsx`
 - [ ] `@/components/google-login.tsx`
 - [ ] `@/components/github-login.tsx`
@@ -148,4 +145,25 @@ import { db } from `@/lib/db.ts`
   // db is PrismaClient
   const users = await db.users.findMany()
 })()
+```
+
+## Server action utlities (wrapServerAction and ServerActionError)
+
+It's recommended to wrap server actions with `wrapServerAction`. This wraps the return into object containing `success: true` and data. Additionally if you throw `ServerActionError` it returns object with `success: false` and corresonding error.
+
+```typescript
+'server action'
+
+import { wrapServerAction } from '@/lib/wrap-server-action'
+import { ServerActionError } from '@/lib/server-action-error'
+
+// in @/actions/example-action.ts
+
+export const exampleAction = wrapServerAction(async (/* params */) => {
+  // put your server action here
+
+  if (/* some error */) {
+    throw new ServerActionError('Error with input')
+  }
+})
 ```
