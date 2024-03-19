@@ -4,18 +4,22 @@ import { ServerActionError } from './server-action-error'
 
 export const wrapServerAction = <T, U extends any[]>(
   input: (...args: U) => Promise<T>
-) => {
+): ((
+  ...args: U
+) => Promise<
+  { success: true; data: T } | { success: false; message: string }
+>) => {
   return async (...args: U) => {
     try {
       const data = await input(...args)
       return {
-        status: 'ok',
+        success: true,
         data,
       }
     } catch (e) {
       if (e instanceof ServerActionError) {
         return {
-          status: 'error',
+          success: false,
           message: e.message,
         }
       }
