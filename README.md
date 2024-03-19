@@ -28,13 +28,26 @@
 - [ ] `@/components/google-login.tsx`
 - [ ] `@/components/github-login.tsx`
 
-- [ ] How to add new OAuth2 methods
 - [ ] How to start developing
+
   - [ ] `.env`, OAuth2, db etc...
 
-- [ ] Burger menu
 - [ ] Short description of the package for the start of readme outlining key features
 
+## How to add additional OAuth methods
+
+Familiarize yourself with how the existing OAuth methods work. On high level process goes like this.
+
+1. Redirect user to `GET /login/:provider`
+2. This use OAuth provider adapter (preferably from `arctic`) to redirect user to Oauth2 provder consent screen. Remember to add email to scope.
+3. Provider should redirect user back to our service into `GET /login/:provider/callback`
+
+4. Validate input parameters and possible additional cookies set in `GET /login/:provider`
+5. Validate authorization code with provider adapter (preferably from `arctic`)
+6. Get user data from OAuth provider
+7. Check if user email already exists in users table. If it does add new OAuth provider into existing account. If not, create a new user account
+8. Finally create a new session
+9. Redirect user back to `/`
 
 ## Adding new env variables
 
