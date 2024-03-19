@@ -30,7 +30,11 @@
 
 - [ ] How to add new OAuth2 methods
 - [ ] How to start developing
-  - [ ] `.env`, OAuth2, prisma etc...
+  - [ ] `.env`, OAuth2, db etc...
+
+- [ ] Burger menu
+- [ ] Short description of the package for the start of readme outlining key features
+
 
 ## Adding new env variables
 
