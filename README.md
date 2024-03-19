@@ -176,3 +176,10 @@ Component library is located at `@/components`.
 - `Menu` component
 
 Additionally, [shadcn/ui](https://ui.shadcn.com/) components are in subfolder `@/components/ui`
+
+## TODO
+- [ ] Husky with Lint-staged
+- [ ] Commitlint
+- [ ] semantic-release OR release-please
+- [ ] Logging
+- login buttons should use <a>
