@@ -8,15 +8,15 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(uuid())
+  id            String         @id @default(uuid())
+  email         String         @unique
   sessions      Session[]
   oAuthAccounts OAuthAccount[]
-  username      String          @unique
 }
 
 model OAuthAccount {
   provider       OAuthAccountProvider
-  providerUserId String @unique
+  providerUserId String               @unique
   userId         String
 
   user User @relation(references: [id], fields: [userId], onDelete: Cascade)
@@ -26,6 +26,7 @@ model OAuthAccount {
 
 enum OAuthAccountProvider {
   GITHUB
+  GOOGLE
 }
 
 model Session {
@@ -34,3 +35,4 @@ model Session {
   expiresAt DateTime
   user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
+
