@@ -6,7 +6,7 @@
 - orm: [Prisma](https://www.prisma.io/docs/orm) + postgres
 - forms: [react-hook-form](https://react-hook-form.com/)
 - validation: [zod](https://github.com/colinhacks/zod)
-- styles: [tailwindcss](https://tailwindcss.com/), sass, normalize
+- styles: [tailwindcss](https://tailwindcss.com/), sass, normalize.css
 - UI libraries: [shadcn](https://ui.shadcn.com/)
 - icons: [lucide-react](https://lucide.dev/icons/)
 - linter: ESLint
@@ -86,7 +86,7 @@ To protect routes using the `getCurrentUser` method, you can utilize it app / ap
 import { getCurrentUser } from '@/lib/auth.ts'
 
 // Example route / template
-const routeOrPage = async (req, res) => {
+const routeOrPage = () => {
   try {
     const { user } = await getCurrentUser()
 
@@ -98,7 +98,7 @@ const routeOrPage = async (req, res) => {
 }
 ```
 
-## Using `handlePrismaError` utility function for 404 errors
+## `handlePrismaError` for 404 errors
 
 ```typescript
 import { db } from '@/lib/db.ts'
