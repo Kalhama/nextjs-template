@@ -7,7 +7,7 @@
 - forms: [react-hook-form](https://react-hook-form.com/)
 - validation: [zod](https://github.com/colinhacks/zod)
 - styles: [tailwindcss](https://tailwindcss.com/), sass, normalize.css
-- UI libraries: [shadcn](https://ui.shadcn.com/)
+- UI libraries: [shadcn/ui](https://ui.shadcn.com/)
 - icons: [lucide-react](https://lucide.dev/icons/)
 - linter: ESLint
 - formatter: Prettier
@@ -20,15 +20,17 @@
 
 ## TODO documentation
 
-- [ ] `@/components/button-loading.tsx`
-- [ ] `@/components/google-login.tsx`
-- [ ] `@/components/github-login.tsx`
-
-- [ ] How to start developing
-
-  - [ ] `.env`, OAuth2, db etc...
-
 - [ ] Short description of the package for the start of readme outlining key features
+- [ ] TOC
+
+## How to start developing
+
+1. Install a postgresql
+2. Create .env file which has got all the fields from `src/config.mjs`. If you want to disable some of the OAuth providers you can do it first. DATABASE_URL should be [Prisma connection URL](https://www.prisma.io/docs/orm/reference/connection-urls)
+3. `pnpm install`
+4. `pnpm exec prisma db push`
+5. `pnpm dev`
+6. Go to [localhost:3000](http://localhost:3000) to see server running
 
 ## How to add additional OAuth methods
 
@@ -167,3 +169,13 @@ export const exampleAction = wrapServerAction(async (/* params */) => {
   }
 })
 ```
+
+## Component library
+
+Component library is located at `@/components`.
+
+- `ButtonLoading` - shadcn Button with loading
+- OAuth specific login buttons
+- `Menu` component
+
+Additionally, [shadcn/ui](https://ui.shadcn.com/) components are in subfolder `@/components/ui`
