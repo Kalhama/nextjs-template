@@ -182,4 +182,3 @@ Additionally, [shadcn/ui](https://ui.shadcn.com/) components are in subfolder `@
 - [ ] Commitlint
 - [ ] semantic-release OR release-please
 - [ ] Logging
-- login buttons should use <a>

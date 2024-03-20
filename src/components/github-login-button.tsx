@@ -26,7 +26,7 @@ export const GithubLoginButton = () => {
   const [loading, setLoading] = useState(false)
 
   return (
-    <Link href="/login/github">
+    <a href="/login/github">
       <ButtonLoading
         loading={loading}
         className="transition-all"
@@ -35,6 +35,6 @@ export const GithubLoginButton = () => {
         <GoogleSvg />
         Login with Github
       </ButtonLoading>
-    </Link>
+    </a>
   )
 }
