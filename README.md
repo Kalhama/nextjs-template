@@ -177,8 +177,12 @@ Component library is located at `@/components`.
 
 Additionally, [shadcn/ui](https://ui.shadcn.com/) components are in subfolder `@/components/ui`
 
+## Commit message linting
+
+We use `commitlint` to lint commit messages and enforce [conventional commits](https://www.conventionalcommits.org/en). We highly [recommend](https://github.com/googleapis/release-please?tab=readme-ov-file#linear-git-commit-history-use-squash-merge) you to use squash merges. If your PR contains multiple fixes or features [see this](https://github.com/googleapis/release-please?tab=readme-ov-file#what-if-my-pr-contains-multiple-fixes-or-features)
+
 ## TODO
-- [ ] Husky with Lint-staged
-- [ ] Commitlint
+
+- [ ] Lint-staged
 - [ ] semantic-release OR release-please
 - [ ] Logging
