@@ -36,3 +36,7 @@ model Session {
   user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
+model Test {
+  id Int @id @default(autoincrement())
+  data String
+}
