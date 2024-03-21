@@ -174,6 +174,7 @@ Component library is located at `@/components`.
 - `ButtonLoading` - shadcn Button with loading
 - OAuth specific login buttons
 - `Menu` component
+- `DateTimePicker` component
 
 Additionally, [shadcn/ui](https://ui.shadcn.com/) components are in subfolder `@/components/ui`
 
@@ -186,3 +187,5 @@ We use `commitlint` to lint commit messages and enforce [conventional commits](h
 - [ ] Lint-staged
 - [ ] semantic-release OR release-please
 - [ ] Logging
+- [ ] Shadcn
+- [ ] typography: https://github.com/tailwindlabs/tailwindcss-typography
