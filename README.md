@@ -167,6 +167,23 @@ export const exampleAction = wrapServerAction(async (/* params */) => {
 })
 ```
 
+## useServerAction hook
+
+```typescript
+import { useServerAction } from '@/lib/use-server-action'
+
+export default function Page() {
+  const { action, loading, data, message } = useServerAction(serverAction)
+
+  return (
+    <div>
+      ...
+    </div>
+  )
+}
+
+```
+
 ## Component library
 
 Component library is located at `@/components`.
