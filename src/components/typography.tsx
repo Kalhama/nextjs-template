@@ -19,7 +19,6 @@ export const typographyVariants = cva('text-xl', {
       large: 'text-lg font-semibold',
       small: 'text-sm font-medium leading-none',
       muted: 'text-sm text-muted-foreground',
-      removePMargin: '[&:not(:first-child)]:mt-0',
     },
   },
   defaultVariants: {
@@ -30,14 +29,19 @@ export const typographyVariants = cva('text-xl', {
 
 export interface TypographyProps
   extends React.HTMLAttributes<HTMLHeadingElement>,
-    VariantProps<typeof typographyVariants> {}
+    VariantProps<typeof typographyVariants> {
+  removePMargin?: boolean
+}
 
 const Typography = React.forwardRef<HTMLHeadingElement, TypographyProps>(
-  ({ className, variant, affects, ...props }, ref) => {
+  ({ className, variant, affects, removePMargin, ...props }, ref) => {
     const Comp = (variant === 'blockquote' ? 'code' : variant) || 'p'
     return (
       <Comp
-        className={cn(typographyVariants({ variant, affects, className }))}
+        className={cn(
+          typographyVariants({ variant, affects, className }),
+          removePMargin ? '[&:not(:first-child)]:mt-0' : ''
+        )}
         ref={ref}
         {...props}
       />
