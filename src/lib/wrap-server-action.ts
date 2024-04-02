@@ -1,14 +1,13 @@
-import { notFound, redirect } from 'next/navigation'
-
 import { ServerActionError } from './server-action-error'
 
+export type ServerActionResult<T> =
+  | { success: true; data: T }
+  | { success: false; error: string }
+
+// when doing server action you should do `export const action = wrapServerAction(yourAction)
 export const wrapServerAction = <T, U extends any[]>(
   input: (...args: U) => Promise<T>
-): ((
-  ...args: U
-) => Promise<
-  { success: true; data: T } | { success: false; message: string }
->) => {
+): ((...args: U) => Promise<ServerActionResult<T>>) => {
   return async (...args: U) => {
     try {
       const data = await input(...args)
@@ -20,7 +19,7 @@ export const wrapServerAction = <T, U extends any[]>(
       if (e instanceof ServerActionError) {
         return {
           success: false,
-          message: e.message,
+          error: e.message,
         }
       }
 
