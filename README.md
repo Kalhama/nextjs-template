@@ -4,7 +4,11 @@ A NextJS template with Prisma, variety of utility functions, and more.
 
 ## How to start developing
 
-1. Install a postgresql
+1. Install a postgresql `docker run --name postgres -e 
+POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres`
+- Optional: Install pgadmin: `docker run -p 5050:8888 -e 
+'PGADMIN_DEFAULT_EMAIL=admin@admin.com' -e 
+'PGADMIN_DEFAULT_PASSWORD=admin' -d --name pgadmin4 dpage/pgadmin4`
 2. Create .env file which has got all the fields from `src/config.mjs`. If you want to disable some of the OAuth providers you can do it first. DATABASE_URL should be [Prisma connection URL](https://www.prisma.io/docs/orm/reference/connection-urls)
 3. `pnpm install`
 4. `pnpm exec prisma db push`
