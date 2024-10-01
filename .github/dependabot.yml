@@ -14,3 +14,10 @@ updates:
       - dependency-type: 'direct'
     commit-message:
       prefix: 'chore(dependencies)'
+    groups:
+      group-updates:
+        patterns:
+          - "*"
+        update-types:
+        - "minor"
+        - "patch"
